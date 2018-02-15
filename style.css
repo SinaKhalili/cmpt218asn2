@@ -1,0 +1,34 @@
+@font-face {
+  font-family: "Roboto-Regular";
+  src: url("fonts/roboto/Roboto-Regular.woff") format("woff");
+}
+
+html{
+  font-family: Roboto-Regular;
+  background: #F7B538;
+}
+
+.wrapper{
+  /* background: #FF5400; */
+  background: #FFFFC7;
+  text-align: center;
+  margin: 0 auto;
+  width: 500px;
+  padding: 0px 8px;
+
+}
+
+form{
+  
+}
+
+
+.butx{
+  -webkit-border-radius: 12;
+  -moz-border-radius: 12;
+  border-radius: 12px;
+  padding: 15px 22px 14px 19px;
+  background: #028090;
+  color:white;
+  text-decoration: none;
+}
