@@ -5,21 +5,26 @@
     <title>The greatest form in the world</title>
     <link rel="stylesheet" href="style.css">
   </head>
-  <script type="text/javascript" src="script.js"></script>
+
   <body>
     <div class="wrapper">
       <h1>Top Form</h1>
       <div class="form-overlay">
-        <form name='simpleform' method='POST' action='http://localhost:8080' id="boxes">
-          <label for="fname">Enter your first name:</label> <input id="fname" placeholder='first' name='fname' type='text' /> <br />
+        <form  name='simpleform' method='POST' action='' id="boxes">
+          <label for="fname">Enter your first name:</label> <input class="fnames" id="fname" placeholder='first' name='fname' type='text' /> <br />
           <label for="lname">Enter your last name:</label> <input name='lname' placeholder='last' type='text' /> <br />
-          <label for="age">Enter you preferred email:</label> <input name='age' placeholder='you@example.com' type='email' /> <br />
-          <label for="lname">What is your birthday? </label> <input name='bday' type='date' /> <br />
+          <label for="bday">What is your birthday? </label> <input name='bday' type='date' /> <br />
+          <label for="email">Enter you preferred email:</label> <input name='email' placeholder='you@example.com' type='email' /> <button class = "butx-small" type = "button" onclick = "sup(this)" id="copyMe">+</button><br />
+          <div id="appendPoint1"></div>
           <div id="appendPoint"></div>
-          <input type='submit' value='SEND' class="butx" />
+          <input type="hidden" name="mails" value="1" id="changeMe"/>
+          <!-- <input type='submit' value='SEND' class="butx"/> -->
+          <input type='reset' value='Reset All Fields' class="butx" />
         </form>
       </div>
-    <button class= "butx" id= "addbutton" type="button" name="button" onclick="hi()">Add another?</button>
+      <button class= "butx" id= "addbutton" type="button" name="button" onclick="hi()">Add Form?</button>
+      <button class= "butx" id= "addbutton" type="button" name="button" onclick="swag()">SUBMIT</button>
   </div>
+    <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
