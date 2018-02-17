@@ -13,7 +13,14 @@ server.on('request', function(req, res) {
   if(urlObj.query.lname){
     console.log(urlObj.query.lname);
   }
-  if (req.method === 'GET' && req.url.match('/users.html')){
+  if (req.method === 'GET' && req.url === '/'){
+    console.log("so here we are");
+    res.writeHead(302,{
+      'Location': 'http://localhost:8080/form.html'//path.join(__dirname, 'form.html')
+    });
+    res.end();
+  }
+  else if (req.method === 'GET' && req.url.match('/users.html')){
     let objo;
     let datter;
     let scripting = "";

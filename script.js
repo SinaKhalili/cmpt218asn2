@@ -43,8 +43,8 @@ function sup(butt){
     clone.value = "";
     clone.innerHTML = "Other emails";
     if (butt.nextSibling) {
-      butt.parentNode.insertBefore(clone, butt.nextSibling);
-    } else {
+       butt.parentNode.insertBefore(clone, butt.nextSibling);
+     } else {
       butt.parentNode.appendChild(clone);
     }
   }
