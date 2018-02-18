@@ -1,3 +1,4 @@
+const POrT = "17630"; //CHANGE THIS TO THE DESIRED PORT NUMBER!
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
@@ -16,7 +17,7 @@ server.on('request', function(req, res) {
   if (req.method === 'GET' && req.url === '/'){
     console.log("so here we are");
     res.writeHead(302,{
-      'Location': 'http://localhost:8080/form.html'//path.join(__dirname, 'form.html')
+      'Location': 'http://localhost:' + POrT + '/form.html'//path.join(__dirname, 'form.html')
     });
     res.end();
   }
@@ -24,7 +25,7 @@ server.on('request', function(req, res) {
     let objo;
     let datter;
     let scripting = "";
-    http.get('http://localhost:8080/data/users.json',(toadstool)=>{
+    http.get('http://localhost:' + POrT + '/data/users.json',(toadstool)=>{
 
     if(fs.existsSync(path.join(__dirname, 'data/users.json'))){
       fs.readFile(path.join(__dirname, 'data/users.json'),(err,data)=>{
@@ -36,6 +37,17 @@ server.on('request', function(req, res) {
           objo = JSON.parse(data);
           console.log("ABOUT TO LOG DATTER");
           scripting = 'var objo = '+datter+';console.log(objo);'+`\
+          objo.sort((a,b)=>{\
+            if(!(a["fname"])){\
+              return a;\
+            }\
+            else if(!(b["fname"])){\
+              return b;\
+            }\
+            else{\
+              return a["fname"].localeCompare(b["fname"]);\
+            }\
+          });\
           var tableau = document.createElement("table");\
           var rowler = tableau.insertRow(-1);\
           var cols = ["fname","lname","bday","email"];\
@@ -77,6 +89,7 @@ server.on('request', function(req, res) {
     }
   });
   }
+
   else if (req.method === 'GET' && req.url.match('data/users.json')){
 
     console.log("Received get request for users.json")
@@ -85,7 +98,7 @@ server.on('request', function(req, res) {
     }
     else{
       console.log("file does not exist yet");
-      fs.appendFile('data/users.json',"[{}]", (err)=>{
+      fs.appendFileSync('data/users.json',"[{}]", (err)=>{
         if(err) throw err;
         console.log("Created new file and put in just an empty JSON");
       });
@@ -97,19 +110,31 @@ server.on('request', function(req, res) {
     jsonstream.pipe(res);
 
   }
+  else if (req.method === 'GET' && !(fs.existsSync(path.join(__dirname, req.url)))) {
+      res.writeHead(404);
+      res.write('404 Error :-(');
+      res.end();
+  }
+
   else if (req.method === 'GET' && req.url.match(/^\/.+\.html$/)) {
     var filepath = path.join(__dirname, req.url);
+    if(fs.existsSync(filepath)){
+      fs.readFile(filepath, function(err, contents) {
+        if (err) {
+          // handle error
+        } else {
+          res.writeHead(200, {"Content-Type": "text/html"});
+          res.write(contents);
+          res.end();
+        }
 
-    fs.readFile(filepath, function(err, contents) {
-      if (err) {
-        // handle error
-      } else {
-        res.writeHead(200, {"Content-Type": "text/html"});
-        res.write(contents);
-        res.end();
-      }
-
-    });
+      });
+    }
+    else{
+      res.writeHead(404);
+      res.write('404 Error');
+      res.end();
+    }
 
   }
 
@@ -151,12 +176,12 @@ server.on('request', function(req, res) {
 
        let objjarrayy = "";
        console.log("About to send a get request to users.json");
-       http.get('http://localhost:8080/data/users.json', (res)=>{
-         res.on('data', function(chunk){
+       http.get('http://localhost:' + POrT + '/data/users.json', (resp)=>{
+         resp.on('data', function(chunk){
            objjarrayy+=chunk.toString();
          });
          console.log("sending get request to users.json");
-         res.on('end', ()=>{
+         resp.on('end', ()=>{
            console.log(objjarray);
            var objjarray = JSON.parse(objjarrayy);
            console.log("FINISHED send a get request to users.json");
@@ -213,7 +238,7 @@ server.on('request', function(req, res) {
     res.end()
   }
 });
-server.listen(8080);
+server.listen(POrT);
 
 
-console.log('Magic is happening on port 8080');
+console.log('Magic is happening on port ' + POrT + '');

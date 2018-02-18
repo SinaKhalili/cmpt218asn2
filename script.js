@@ -3,11 +3,6 @@ var formzy = document.getElementById("boxes");
 var hidden = document.getElementById("changeMe");
 var whichPage = document.getElementsByClassName("form-overlay");
 var array = [1];
-if(whichPage.length === 0){
-  //console.log("I am on the users html page");
-  //var mydata = JSON.parse(data);
-  //alert(mydata[0].fname);
-}
 function swag(){
   hidden.value = array;
   var fnames = document.getElementsByClassName("fnames");
@@ -24,6 +19,30 @@ var butzo = document.getElementById("copyMe");
 if(butzo){
   var butzo2 = butzo.cloneNode(true);
 }
+
+function deleteAtlieans(){
+  if(confirm("Are you sure you want to delete all forms? Non submitted data will be lost")){
+    var appendpoint = document.getElementById("appendPoint");
+    appendpoint.innerHTML = "";
+    var appendpoint1 = document.getElementById("appendPoint1");
+    appendpoint1.innerHTML = "";
+    formzy.reset();
+    var boxes = document.getElementById("boxes");
+    for(var k = 0; k<array[0]*array.length; k++){
+      for(var i = 24; i<24+(10*array[0]); i++){
+          if(boxes.childNodes[i] && boxes.childNodes[i].tagName === "DIV"){
+            break;
+          }
+          if(boxes.childNodes[i] && boxes.childNodes[i].id !== "changeMe"){
+            boxes.childNodes[i].remove();
+          }
+      }
+    }
+    a = 1;
+    array = [1];
+  }
+  else{}
+}
 //console.log(butzo2);
 function sup(butt){
 
@@ -38,7 +57,7 @@ function sup(butt){
 
   var boxes = document.getElementById("boxes");
   var appendpoint1 = document.getElementById("appendPoint1");
-  for (var i = 16; i < 22; i++) {
+  for (var i = 16; i < 23; i++) {
     var clone = boxes.childNodes[i].cloneNode(true);
     clone.value = "";
     clone.innerHTML = "Other emails";

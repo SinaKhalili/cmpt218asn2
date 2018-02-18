@@ -17,7 +17,18 @@ html{
   padding: 8px 8px;
 
 }
+.wrapper2{
+  /* background: #FF5400; */
+  background: #FFFFC7;
+  text-align: left;
+  margin: 20px 20px;
+  width: 400px;
+  padding: 8px 8px;
+  /* position: absolute; */
+  left: 20px;
+  top: 20px;
 
+}
 table {
     color: #334;
     font-family:Roboto-Regular;
