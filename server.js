@@ -1,4 +1,4 @@
-const POrT = "17630"; //CHANGE THIS TO THE DESIRED PORT NUMBER!
+var POrT = "17630"; //CHANGE THIS TO THE DESIRED PORT NUMBER!
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
@@ -22,9 +22,9 @@ server.on('request', function(req, res) {
     res.end();
   }
   else if (req.method === 'GET' && req.url.match('/users.html')){
-    let objo;
-    let datter;
-    let scripting = "";
+    var  objo;
+    var  datter;
+    var  scripting = "";
     http.get('http://localhost:' + POrT + '/data/users.json',(toadstool)=>{
 
     if(fs.existsSync(path.join(__dirname, 'data/users.json'))){
@@ -174,7 +174,7 @@ server.on('request', function(req, res) {
     });
     req.on('end', function() {
 
-       let objjarrayy = "";
+       var objjarrayy = "";
        console.log("About to send a get request to users.json");
        http.get('http://localhost:' + POrT + '/data/users.json', (resp)=>{
          resp.on('data', function(chunk){
@@ -189,7 +189,7 @@ server.on('request', function(req, res) {
 
            var postObj = qs.parse(body);
            var mailz = postObj.mails.split(',');
-           let k = 0;
+           var k = 0;
            for(var i = 0; i<mailz.length; i++){
             if (mailz.length != 1) {
               var objj = {
