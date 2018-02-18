@@ -1,5 +1,6 @@
 var POrT = "17630"; //CHANGE THIS TO THE DESIRED PORT NUMBER!
 var http = require('http');
+var dns = "cmpt218.csil.sfu.ca";
 var fs = require('fs');
 var path = require('path');
 var url = require('url');
@@ -15,17 +16,29 @@ server.on('request', function(req, res) {
     console.log(urlObj.query.lname);
   }
   if (req.method === 'GET' && req.url === '/'){
-    console.log("so here we are");
-    res.writeHead(302,{
-      'Location': 'http://localhost:' + POrT + '/form.html'//path.join(__dirname, 'form.html')
-    });
+/*var filepath = path.join(__dirname, '/form.html');
+fs.readFile(filepath, (err,contents)=>{
+	res.writeHead(200, {"content-type":"text/html"});
+	res.write(contents);
+	res.end();
+});*/
+//    console.log(loc);
+
+  //  whocares.on('end',()=>{
+	console.log("trying to redirect");
+	res.writeHead(302,{
+      'Location': dns+':' + POrT + '/form.html'//path.join(__dirname, 'form.html')
+	});
+	console.log("wrote to head");  
+ // });
     res.end();
-  }
+  //});
+}
   else if (req.method === 'GET' && req.url.match('/users.html')){
     var  objo;
     var  datter;
     var  scripting = "";
-    http.get('http://localhost:' + POrT + '/data/users.json',(toadstool)=>{
+    http.get("http://" +dns+':' + POrT + '/data/users.json',(toadstool)=>{
 
     if(fs.existsSync(path.join(__dirname, 'data/users.json'))){
       fs.readFile(path.join(__dirname, 'data/users.json'),(err,data)=>{
@@ -98,10 +111,10 @@ server.on('request', function(req, res) {
     }
     else{
       console.log("file does not exist yet");
-      fs.appendFileSync('data/users.json',"[{}]", (err)=>{
+      fs.appendFileSync('data/users.json',"[{}]");/* (err)=>{
         if(err) throw err;
         console.log("Created new file and put in just an empty JSON");
-      });
+      });*/
 
     }
     var jsonpath = path.join(__dirname, req.url);
@@ -176,7 +189,7 @@ server.on('request', function(req, res) {
 
        var objjarrayy = "";
        console.log("About to send a get request to users.json");
-       http.get('http://localhost:' + POrT + '/data/users.json', (resp)=>{
+       http.get( "http://" +dns+':' + POrT + '/data/users.json', (resp)=>{
          resp.on('data', function(chunk){
            objjarrayy+=chunk.toString();
          });
